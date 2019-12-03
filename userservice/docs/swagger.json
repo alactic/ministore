@@ -1,0 +1,153 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "{{.Description}}",
+        "title": "{{.Title}}",
+        "contact": {},
+        "license": {},
+        "version": "{{.Version}}"
+    },
+    "host": "{{.Host}}",
+    "basePath": "{{.BasePath}}",
+    "paths": {
+        "/accounts/{id}/images": {
+            "post": {
+                "description": "Upload file",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "summary": "Upload account image",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Account ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "account image",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/users.APIError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/users.APIError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/users.APIError"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/user/": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Add a new user to the store",
+                "parameters": [
+                    {
+                        "description": "User Data",
+                        "name": "message",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/users.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "We need ID!!",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/users.APIError"
+                        }
+                    },
+                    "404": {
+                        "description": "Can not find ID",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/users.APIError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "users.APIError": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "errorCode": {
+                    "type": "integer"
+                },
+                "errorMessage": {
+                    "type": "string"
+                }
+            }
+        },
+        "users.User": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

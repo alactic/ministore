@@ -1,0 +1,103 @@
+basePath: '{{.BasePath}}'
+definitions:
+  users.APIError:
+    properties:
+      createdAt:
+        type: string
+      errorCode:
+        type: integer
+      errorMessage:
+        type: string
+    type: object
+  users.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      password:
+        type: string
+    type: object
+host: '{{.Host}}'
+info:
+  contact: {}
+  description: '{{.Description}}'
+  license: {}
+  title: '{{.Title}}'
+  version: '{{.Version}}'
+paths:
+  /accounts/{id}/images:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload file
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: account image
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/string'
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/users.APIError'
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/users.APIError'
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/users.APIError'
+            type: object
+      summary: Upload account image
+      tags:
+      - accounts
+  /admin/user/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/users.User'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: We need ID!!
+          schema:
+            $ref: '#/definitions/users.APIError'
+            type: object
+        "404":
+          description: Can not find ID
+          schema:
+            $ref: '#/definitions/users.APIError'
+            type: object
+      summary: Add a new user to the store
+      tags:
+      - admin
+swagger: "2.0"
