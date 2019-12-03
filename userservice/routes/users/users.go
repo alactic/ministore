@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func users(router *gin.Context) {
+func Users(router *gin.Context) {
 	users := router.Group("/users")
 		{
 			users.POST("/", users.CreateUserEndpoint)

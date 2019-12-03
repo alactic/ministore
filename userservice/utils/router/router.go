@@ -1,16 +1,17 @@
 package router
 
 import (
-	"log"
 	"errors"
 	"net/http"
-	"github.com/alactic/ministore/userservice/routes/routerindex"
+
+	// "github.com/alactic/ministore/userservice/routes/routerindex"
 	"github.com/gin-gonic/gin"
 
-	 _ "github.com/alactic/ministore/userservice/docs"
+	"github.com/alactic/ministore/sharedservice/httputil"
+	"github.com/alactic/ministore/userservice/routes/routerindex"
+	_ "github.com/alactic/ministore/userservice/docs"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"github.com/alactic/ministore/sharedservice/httputil"
 )
 
 func Router() {
