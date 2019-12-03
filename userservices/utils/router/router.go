@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/alactic/ministore/sharedservice/httputil"
-	_ "github.com/alactic/ministore/userservices/docs"
+	// _ "github.com/alactic/ministore/userservices/docs"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
