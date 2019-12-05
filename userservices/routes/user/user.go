@@ -12,5 +12,6 @@ func User(router *gin.RouterGroup) {
 			users.PUT("/", user.UpdateUserEndpoint)
 			users.GET("/", user.GetUsersEndpoint)
 			users.GET("/:id", user.GetUserById)
+			users.GET("/test", user.TestEndpoint)
 		}
 }

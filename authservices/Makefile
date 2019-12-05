@@ -1,6 +1,6 @@
 build:
 	# protoc --proto_path=.:$GOPATH/src --go_out=. --micro_out=.  proto/user/user.proto
-	sudo docker build -t ministore-userservices .
+	sudo docker build -t ministore-authservices .
 
 run: 
 	sudo docker rm -f userservices

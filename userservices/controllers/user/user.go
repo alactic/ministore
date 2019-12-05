@@ -159,3 +159,20 @@ func GetUserById(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, user)
 }
+
+
+// TestEndpoint godoc
+// @Summary get all users
+// @Description get all user by json 
+// @Tags Users
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} userm.UpdateUser
+// @Failure 400 {object} error.HTTPError
+// @Failure 404 {object} error.HTTPError
+// @Failure 500 {object} error.HTTPError
+// @Security ApiKeyAuth
+// @Router /api/v1/test [get]
+func TestEndpoint(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, gin.H{"data": "testing app"})
+}

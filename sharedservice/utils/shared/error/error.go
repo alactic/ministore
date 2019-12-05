@@ -1,6 +1,15 @@
-package httputil
+package error
 
-import "github.com/gin-gonic/gin"
+import (
+	"errors"
+
+	"github.com/gin-gonic/gin"
+)
+
+var (
+	// ErrNoRow example
+	ErrNoRow = errors.New("no rows in result set")
+)
 
 // NewError example
 func NewError(ctx *gin.Context, status int, err error) {
