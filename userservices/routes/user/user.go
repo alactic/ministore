@@ -9,5 +9,8 @@ func User(router *gin.RouterGroup) {
 	users := router.Group("/users") 
 		{
 			users.POST("/", user.CreateUserEndpoint)
+			users.PUT("/", user.UpdateUserEndpoint)
+			users.GET("/", user.GetUsersEndpoint)
+			users.GET("/:id", user.GetUserById)
 		}
 }

@@ -1,5 +1,6 @@
+basePath: /
 definitions:
-  user.HTTPError:
+  error.HTTPError:
     properties:
       code:
         example: 400
@@ -8,42 +9,203 @@ definitions:
         example: status bad request
         type: string
     type: object
+  userm.UpdateUser:
+    properties:
+      email:
+        type: string
+      firstname:
+        type: string
+      id:
+        type: string
+      lastname:
+        type: string
+      type:
+        type: string
+    required:
+    - email
+    - firstname
+    - id
+    - lastname
+    - type
+    type: object
+  userm.User:
+    properties:
+      confirmpassword:
+        type: string
+      email:
+        type: string
+      firstname:
+        type: string
+      id:
+        type: string
+      lastname:
+        type: string
+      password:
+        type: string
+      type:
+        type: string
+    required:
+    - confirmpassword
+    - email
+    - firstname
+    - id
+    - lastname
+    - password
+    - type
+    type: object
+host: localhost:8888
 info:
-  contact: {}
-  license: {}
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a mini store application.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
 paths:
-  /accounts:
-    post:
+  /api/v1/users:
+    get:
       consumes:
       - application/json
-      description: add by json account
-      parameters:
-      - description: Add account
-        in: body
-        name: account
-        required: true
-        schema:
-          type: string
+      description: get all user by json
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/string'
+            $ref: '#/definitions/userm.UpdateUser'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/user.HTTPError'
+            $ref: '#/definitions/error.HTTPError'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/user.HTTPError'
+            $ref: '#/definitions/error.HTTPError'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/user.HTTPError'
-      summary: Add a account
+            $ref: '#/definitions/error.HTTPError'
+      security:
+      - ApiKeyAuth: []
+      summary: get all users
       tags:
-      - accounts
+      - Users
+    post:
+      consumes:
+      - application/json
+      description: add by json user
+      parameters:
+      - description: User Data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/userm.User'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/userm.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/error.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/error.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/error.HTTPError'
+      security:
+      - ApiKeyAuth: []
+      summary: Add a user
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      description: Update by json user
+      parameters:
+      - description: User Data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/userm.UpdateUser'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/userm.UpdateUser'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/error.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/error.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/error.HTTPError'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a user
+      tags:
+      - Users
+  /api/v1/users/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/userm.UpdateUser'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/error.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/error.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/error.HTTPError'
+      summary: Show a user
+      tags:
+      - Users
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+  BasicAuth:
+    type: basic
 swagger: "2.0"
