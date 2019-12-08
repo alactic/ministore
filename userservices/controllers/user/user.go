@@ -34,7 +34,7 @@ var bucket *gocb.Bucket = connection.Connection()
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
 // @Security ApiKeyAuth
-// @Router /api/v1/users [post]
+// @Router /user/api/v1/users [post]
 func CreateUserEndpoint(ctx *gin.Context) {
 	var addUser userm.User
 	authHeader := ctx.GetHeader("Authorization")
@@ -79,7 +79,7 @@ func CreateUserEndpoint(ctx *gin.Context) {
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
 // @Security ApiKeyAuth
-// @Router /api/v1/users [put]
+// @Router /user/api/v1/users [put]
 func UpdateUserEndpoint(ctx *gin.Context) {
 	var updateUser userm.UpdateUser
 	authHeader := ctx.GetHeader("Authorization")
@@ -112,7 +112,7 @@ func UpdateUserEndpoint(ctx *gin.Context) {
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
 // @Security ApiKeyAuth
-// @Router /api/v1/users [get]
+// @Router /user/api/v1/users [get]
 func GetUsersEndpoint(ctx *gin.Context) {
 	var users []userm.UpdateUser
 	authHeader := ctx.GetHeader("Authorization")
@@ -148,7 +148,7 @@ func GetUsersEndpoint(ctx *gin.Context) {
 // @Failure 400 {object} error.HTTPError
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
-// @Router /api/v1/users/{id} [get]
+// @Router /user/api/v1/users/{id} [get]
 func GetUserById(ctx *gin.Context) {
 	var user userm.UpdateUser
 	id := ctx.Param("id")
@@ -170,7 +170,7 @@ func GetUserById(ctx *gin.Context) {
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
 // @Security ApiKeyAuth
-// @Router /api/v1/users/test [get]
+// @Router /user/api/v1/users/test [get]
 func TestEndpoint(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{"data": "testing app " + os.Getenv("MODULE_NAME")})
+	ctx.JSON(http.StatusOK, gin.H{"data": "testing app 44 " + os.Getenv("MODULE_NAME")})
 }
