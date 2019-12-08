@@ -172,5 +172,5 @@ func GetUserById(ctx *gin.Context) {
 // @Security ApiKeyAuth
 // @Router /api/v1/users/test [get]
 func TestEndpoint(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{"data": "testing app" + os.Getenv("COUCHBASE_HOST")})
+	ctx.JSON(http.StatusOK, gin.H{"data": "testing app " + os.Getenv("MODULE_NAME")})
 }
