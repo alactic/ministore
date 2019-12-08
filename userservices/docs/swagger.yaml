@@ -53,7 +53,6 @@ definitions:
     - password
     - type
     type: object
-host: localhost:8888
 info:
   contact:
     email: support@swagger.io
@@ -199,6 +198,35 @@ paths:
           schema:
             $ref: '#/definitions/error.HTTPError'
       summary: Show a user
+      tags:
+      - Users
+  /api/v1/users/test:
+    get:
+      consumes:
+      - application/json
+      description: testing endpoint
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/userm.UpdateUser'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/error.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/error.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/error.HTTPError'
+      security:
+      - ApiKeyAuth: []
+      summary: testing endpoint
       tags:
       - Users
 securityDefinitions:

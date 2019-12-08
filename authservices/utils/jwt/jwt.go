@@ -11,10 +11,7 @@ func GenerateJWT(details map[string]string) string {
 	// var secretkey = os.Get("mysecretkey")
 	mySigningKey := []byte("elvisSecreyKey")
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"foo":       "bar",
-		"firstname": details["firstname"],
-		"lastname":  details["lastname"],
-		"email":     details["email"],
+		details,
 		"nbf":       time.Date(2015, 10, 10, 12, 0, 0, 0, time.UTC).Unix(),
 	})
 

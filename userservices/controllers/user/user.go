@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/alactic/ministore/userservices/models/userm"
 	"github.com/alactic/ministore/userservices/utils/connection"
@@ -20,7 +21,6 @@ import (
 )
 
 var bucket *gocb.Bucket = connection.Connection()
-
 
 // CreateUserEndpoint godoc
 // @Summary Add a user
@@ -42,14 +42,14 @@ func CreateUserEndpoint(ctx *gin.Context) {
 		error.NewError(ctx, http.StatusBadRequest, errors.New("please set Header Authorization"))
 		return
 	}
-	 e := ctx.ShouldBindJSON(&addUser); 
-	 if(e != nil|| e == nil){
+	e := ctx.ShouldBindJSON(&addUser)
+	if e != nil || e == nil {
 		if err := userm.Validation(addUser); err != nil {
 			error.NewError(ctx, http.StatusBadRequest, err)
 			return
 		}
-	 }
-	
+	}
+
 	addUser.ID = uuid.Must(uuid.NewV4()).String()
 	addUser.Password = string(hashed.Hash(addUser.Password))
 	addUser.Confirmpassword = ""
@@ -91,7 +91,7 @@ func UpdateUserEndpoint(ctx *gin.Context) {
 		error.NewError(ctx, http.StatusBadRequest, err)
 		return
 	}
-	
+
 	_, err := bucket.Replace(updateUser.ID, updateUser, 0, 0)
 	if err != nil {
 		fmt.Println("error :: ", err)
@@ -101,10 +101,9 @@ func UpdateUserEndpoint(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, updateUser)
 }
 
-
 // GetUsersEndpoint godoc
 // @Summary get all users
-// @Description get all user by json 
+// @Description get all user by json
 // @Tags Users
 // @Accept  json
 // @Produce  json
@@ -121,11 +120,11 @@ func GetUsersEndpoint(ctx *gin.Context) {
 		error.NewError(ctx, http.StatusBadRequest, errors.New("please set Header Authorization"))
 		return
 	}
-	
-	query := gocb.NewN1qlQuery("SELECT "+bucket.Name()+".* FROM " + bucket.Name())
+
+	query := gocb.NewN1qlQuery("SELECT " + bucket.Name() + ".* FROM " + bucket.Name())
 	rows, err := bucket.ExecuteN1qlQuery(query, nil)
 	if err != nil {
-        ctx.JSON(http.StatusBadRequest, err.Error())
+		ctx.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 	var row userm.UpdateUser
@@ -160,10 +159,9 @@ func GetUserById(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, user)
 }
 
-
 // TestEndpoint godoc
-// @Summary get all users
-// @Description get all user by json 
+// @Summary testing endpoint
+// @Description testing endpoint
 // @Tags Users
 // @Accept  json
 // @Produce  json
@@ -172,7 +170,7 @@ func GetUserById(ctx *gin.Context) {
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
 // @Security ApiKeyAuth
-// @Router /api/v1/test [get]
+// @Router /api/v1/users/test [get]
 func TestEndpoint(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{"data": "testing app"})
+	ctx.JSON(http.StatusOK, gin.H{"data": "testing app" + os.Getenv("COUCHBASE_HOST")})
 }
