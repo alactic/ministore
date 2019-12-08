@@ -16,8 +16,8 @@ import (
 
 func Router() {
 	r := gin.Default()
-
-	v1 := r.Group("/api/v1")
+  
+	v1 := r.Group(+"/"+os.Getenv("MODULE_NAME")+"/api/v1")
 	{
 		index.Index(v1)
 	}
