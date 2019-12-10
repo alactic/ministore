@@ -34,7 +34,7 @@ var bucket *gocb.Bucket = connection.Connection()
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
 // @Security ApiKeyAuth
-// @Router /user/api/v1/users [post]
+// @Router /user/api/v1/users/ [post]
 func CreateUserEndpoint(ctx *gin.Context) {
 	var addUser userm.User
 	authHeader := ctx.GetHeader("Authorization")
@@ -79,7 +79,7 @@ func CreateUserEndpoint(ctx *gin.Context) {
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
 // @Security ApiKeyAuth
-// @Router /user/api/v1/users [put]
+// @Router /user/api/v1/users/ [put]
 func UpdateUserEndpoint(ctx *gin.Context) {
 	var updateUser userm.UpdateUser
 	authHeader := ctx.GetHeader("Authorization")
@@ -112,7 +112,7 @@ func UpdateUserEndpoint(ctx *gin.Context) {
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
 // @Security ApiKeyAuth
-// @Router /user/api/v1/users [get]
+// @Router /user/api/v1/users/ [get]
 func GetUsersEndpoint(ctx *gin.Context) {
 	var users []userm.UpdateUser
 	authHeader := ctx.GetHeader("Authorization")
@@ -148,7 +148,7 @@ func GetUsersEndpoint(ctx *gin.Context) {
 // @Failure 400 {object} error.HTTPError
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
-// @Router /user/api/v1/users/{id} [get]
+// @Router /user/api/v1/users/{id}/ [get]
 func GetUserById(ctx *gin.Context) {
 	var user userm.UpdateUser
 	id := ctx.Param("id")
@@ -157,6 +157,54 @@ func GetUserById(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, err.Error())
 	}
 	ctx.JSON(http.StatusOK, user)
+}
+
+// GetUserByEmailEndpoint godoc
+// @Summary get user by email
+// @Description getting the user details by supplying email
+// @Tags Users
+// @Accept  json
+// @Produce  json
+// @Param user body userm.User true "User Data"
+// @Success 200 {object} userm.User
+// @Failure 400 {object} error.HTTPError
+// @Failure 404 {object} error.HTTPError
+// @Failure 500 {object} error.HTTPError
+// @Router /api/v1/auth/login [post]
+func GetUserByEmailEndpoint(ctx *gin.Context) {
+	var user userm.User
+	var users []userm.UserDetails
+	e := ctx.ShouldBindJSON(&user)
+	if e != nil {
+		ctx.JSON(http.StatusBadRequest, e.Error())
+		return
+	}
+	query := gocb.NewN1qlQuery("SELECT " + bucket.Name() + ".* FROM " + bucket.Name() + " WHERE `email` = $1")
+	rows, err := bucket.ExecuteN1qlQuery(query, []interface{}{user.Email})
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+	var row userm.UserDetails
+	for rows.Next(&row) {
+		users = append(users, row)
+	}
+	error := hashed.CompareHashValue(user.Password, users[0].Password)
+	if error != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"data": "Invalid username or password"})
+		return
+	}
+	details := make(map[string]string)
+	details["firstname"] = users[0].Firstname
+	details["lastname"] =  users[0].Lastname
+	details["email"] = users[0].Email
+
+	var token = jwtFile.GenerateJWT(details)
+	users[0].Token = token
+	var response = make(map[string][]userm.UserDetails)
+	response["data"] = users
+
+	ctx.JSON(http.StatusOK, gin.H{"data": response})
 }
 
 // TestEndpoint godoc
@@ -172,5 +220,5 @@ func GetUserById(ctx *gin.Context) {
 // @Security ApiKeyAuth
 // @Router /user/api/v1/users/test [get]
 func TestEndpoint(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{"data": "testing app 44 " + os.Getenv("MODULE_NAME")})
+	ctx.JSON(http.StatusOK, gin.H{"data": "testing app 777 " + os.Getenv("MODULE_NAME")})
 }

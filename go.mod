@@ -12,5 +12,6 @@ require (
 	github.com/swaggo/files v0.0.0-20190704085106-630677cd5c14
 	github.com/swaggo/gin-swagger v1.2.0
 	golang.org/x/crypto v0.0.0-20191202143827-86a70503ff7e
+	google.golang.org/grpc v1.25.1 // indirect
 	gopkg.in/couchbase/gocb.v1 v1.6.4
 )

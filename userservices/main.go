@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/alactic/ministore/userservices/utils/router"
-	"github.com/alactic/ministore/userservices/utils/connection"
+	"github.com/alactic/ministore/sharedservice/utils/router"
+	"github.com/alactic/ministore/sharedservice/utils/connection"
 	"gopkg.in/couchbase/gocb.v1"
 )
 

@@ -1,3 +1,7 @@
+protomain:
+	protoc --proto_path=proto  --go_out=plugins=grpc:proto proto/userdetails/userdetails.proto
+
+
 build:
 	# protoc --proto_path=.:$GOPATH/src --go_out=. --micro_out=.  proto/user/user.proto
 	sudo docker build -t ministore-userservices .
