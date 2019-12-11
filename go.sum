@@ -9,8 +9,10 @@ github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578/go.mod h1:uGdko
 github.com/alactic/ministore v0.0.0-20191203074322-50417243e2bb/go.mod h1:isHAuBiDMrf36LsLXnhAlhQGcPy3qzmxduV/Zw1yQhE=
 github.com/alactic/ministore v0.0.0-20191203124425-8521af347e2a/go.mod h1:gvs+bTsEat4zNrtl1pfcHw3Wv9fccvJ69qa2KRiuQ3k=
 github.com/alactic/ministore v0.0.0-20191203150511-060fb92909b5/go.mod h1:gvs+bTsEat4zNrtl1pfcHw3Wv9fccvJ69qa2KRiuQ3k=
+github.com/alactic/ministore v0.0.0-20191208161659-9408f70da4bd/go.mod h1:UCC+ig80/5ZGQYBgIAdNnsC1RFEwkWIccXKmAvCHTco=
 github.com/alactic/ministore/authservices v0.0.0-20191205120941-4d57d0c0cfc4 h1:qX96DsHWgdOlvn0HOZXqwSnuH1aJjB5Wc6ITWHsncGI=
 github.com/alactic/ministore/authservices v0.0.0-20191205120941-4d57d0c0cfc4/go.mod h1:pZbFpDmWMh0KMnNcgFn226eBTzZsvPRFHDKYc7MzgrY=
+github.com/alactic/ministore/authservices v0.0.0-20191210204041-270c0ce25171 h1:MDzKToGSgn1+DUV3lQZefkNboCCixtPyLOqFoa61F/Y=
 github.com/alactic/ministore/userservice v0.0.0-20191203090227-fc11f6c33b76 h1:2hM/u7Y9cxvuGYiFzDCZq/uRVK8t237K1AyHaXV30sI=
 github.com/alactic/ministore/userservice v0.0.0-20191203090227-fc11f6c33b76/go.mod h1:poQPWYCHx0Lf/Z7kXzCkbnt5fW1KxC8wKsAAZPJs7BA=
 github.com/alactic/ministore/userservices v0.0.0-20191203123509-0219e44cf7ca h1:kTJv1lIRjZbGskSItA7rVlHhr9R580KsBbJcFSnY8is=
@@ -20,6 +22,8 @@ github.com/alactic/ministore/userservices v0.0.0-20191203150511-060fb92909b5/go.
 github.com/alactic/ministore/userservices v0.0.0-20191205135441-de1ff778516f h1:DoNulh7pJQzJdw4X6DeCZzOLM7Hh//pRuq5dx0ABvGw=
 github.com/alactic/ministore/userservices v0.0.0-20191205135441-de1ff778516f/go.mod h1:Yv0p393VuzALkjvuvnJkXh/q898ZbBXKSyU0B+NrSWc=
 github.com/alactic/ministore/userservices v0.0.0-20191208161659-9408f70da4bd h1:jV4nhjQTQpQmKysf3MtoJKTy7EOxscrP1lnSjJ3XEYs=
+github.com/alactic/ministore/userservices v0.0.0-20191210204041-270c0ce25171 h1:53n9VWBCA3S6yfbEdz8gDDvbC10lWGVlieToD96h0dQ=
+github.com/alactic/ministore/userservices v0.0.0-20191210204041-270c0ce25171/go.mod h1:rzdbps+AqnuTmMAsRGHLXjC/ZKwYJVYOBEFQWd1b2t0=
 github.com/alactic/mygoproject v0.0.0-20191123211049-2df91565b1d2 h1:htwtgq1IztrsvxJCocxIUzQBaaAuhah5E7vPzX44Dr8=
 github.com/alactic/mygoproject v0.0.0-20191123211049-2df91565b1d2/go.mod h1:2unOM85AW35Mb1t2W/sLIuDxa45Zt6PEroS+KpFzg3w=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 h1:JYp7IbQjafoB+tBA3gMyHYHrpOtNuDiK/uB5uXxq5wM=

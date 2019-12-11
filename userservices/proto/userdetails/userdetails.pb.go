@@ -25,8 +25,7 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type Request struct {
-	A                    int64    `protobuf:"varint,1,opt,name=a,proto3" json:"a,omitempty"`
-	B                    int64    `protobuf:"varint,2,opt,name=b,proto3" json:"b,omitempty"`
+	Email                string   `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -57,22 +56,17 @@ func (m *Request) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Request proto.InternalMessageInfo
 
-func (m *Request) GetA() int64 {
+func (m *Request) GetEmail() string {
 	if m != nil {
-		return m.A
+		return m.Email
 	}
-	return 0
-}
-
-func (m *Request) GetB() int64 {
-	if m != nil {
-		return m.B
-	}
-	return 0
+	return ""
 }
 
 type Response struct {
-	Result               int64    `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+	Email                string   `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Firstname            string   `protobuf:"bytes,3,opt,name=firstname,proto3" json:"firstname,omitempty"`
+	Lastname             string   `protobuf:"bytes,4,opt,name=lastname,proto3" json:"lastname,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -103,11 +97,25 @@ func (m *Response) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Response proto.InternalMessageInfo
 
-func (m *Response) GetResult() int64 {
+func (m *Response) GetEmail() string {
 	if m != nil {
-		return m.Result
+		return m.Email
 	}
-	return 0
+	return ""
+}
+
+func (m *Response) GetFirstname() string {
+	if m != nil {
+		return m.Firstname
+	}
+	return ""
+}
+
+func (m *Response) GetLastname() string {
+	if m != nil {
+		return m.Lastname
+	}
+	return ""
 }
 
 func init() {
@@ -118,17 +126,18 @@ func init() {
 func init() { proto.RegisterFile("userdetails/userdetails.proto", fileDescriptor_e8af451ba75bb058) }
 
 var fileDescriptor_e8af451ba75bb058 = []byte{
-	// 160 bytes of a gzipped FileDescriptorProto
+	// 169 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x2d, 0x2d, 0x4e, 0x2d,
 	0x4a, 0x49, 0x2d, 0x49, 0xcc, 0xcc, 0x29, 0xd6, 0x47, 0x62, 0xeb, 0x15, 0x14, 0xe5, 0x97, 0xe4,
-	0x0b, 0xb1, 0x82, 0x29, 0x25, 0x55, 0x2e, 0xf6, 0xa0, 0xd4, 0xc2, 0xd2, 0xd4, 0xe2, 0x12, 0x21,
-	0x1e, 0x2e, 0xc6, 0x44, 0x09, 0x46, 0x05, 0x46, 0x0d, 0xe6, 0x20, 0xc6, 0x44, 0x10, 0x2f, 0x49,
-	0x82, 0x09, 0xc2, 0x4b, 0x52, 0x52, 0xe2, 0xe2, 0x08, 0x4a, 0x2d, 0x2e, 0xc8, 0xcf, 0x2b, 0x4e,
-	0x15, 0x12, 0xe3, 0x62, 0x2b, 0x4a, 0x2d, 0x2e, 0xcd, 0x29, 0x81, 0x2a, 0x86, 0xf2, 0x8c, 0x12,
-	0xb9, 0xb8, 0x1c, 0x53, 0x52, 0x82, 0x53, 0x8b, 0xca, 0x32, 0x93, 0x53, 0x85, 0xd4, 0xb8, 0x98,
-	0x1d, 0x53, 0x52, 0x84, 0xf8, 0x20, 0xd6, 0xe9, 0x41, 0x2d, 0x91, 0xe2, 0x87, 0xf3, 0xa1, 0xa6,
-	0x69, 0x73, 0x71, 0xf8, 0x96, 0xe6, 0x94, 0x64, 0x16, 0xe4, 0x54, 0x12, 0x54, 0x9c, 0xc4, 0x06,
-	0xe6, 0x1b, 0x03, 0x02, 0x00, 0x00, 0xff, 0xff, 0xd2, 0xda, 0x33, 0xf4, 0xdc, 0x00, 0x00, 0x00,
+	0x0b, 0xb1, 0x82, 0x29, 0x25, 0x79, 0x2e, 0xf6, 0xa0, 0xd4, 0xc2, 0xd2, 0xd4, 0xe2, 0x12, 0x21,
+	0x11, 0x2e, 0xd6, 0xd4, 0xdc, 0xc4, 0xcc, 0x1c, 0x09, 0x46, 0x05, 0x46, 0x0d, 0xce, 0x20, 0x08,
+	0x47, 0x29, 0x8a, 0x8b, 0x23, 0x28, 0xb5, 0xb8, 0x20, 0x3f, 0xaf, 0x38, 0x15, 0xa1, 0x82, 0x09,
+	0x49, 0x85, 0x90, 0x0c, 0x17, 0x67, 0x5a, 0x66, 0x51, 0x71, 0x49, 0x5e, 0x62, 0x6e, 0xaa, 0x04,
+	0x33, 0x58, 0x06, 0x21, 0x20, 0x24, 0xc5, 0xc5, 0x91, 0x93, 0x08, 0x95, 0x64, 0x01, 0x4b, 0xc2,
+	0xf9, 0x46, 0xf6, 0x5c, 0xdc, 0xa1, 0xc5, 0xa9, 0x45, 0xc1, 0xa9, 0x45, 0x65, 0x99, 0xc9, 0xa9,
+	0x42, 0x06, 0x10, 0xae, 0x0b, 0xc4, 0x9d, 0x42, 0x7c, 0x10, 0x97, 0xea, 0x41, 0xdd, 0x27, 0xc5,
+	0x0f, 0xe7, 0x43, 0x9c, 0xa3, 0xc4, 0x90, 0xc4, 0x06, 0x16, 0x31, 0x06, 0x04, 0x00, 0x00, 0xff,
+	0xff, 0xdc, 0xb9, 0x6f, 0x94, 0xec, 0x00, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -139,108 +148,72 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// AddServiceClient is the client API for AddService service.
+// UserServiceClient is the client API for UserService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type AddServiceClient interface {
-	Add(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
-	Multiply(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+type UserServiceClient interface {
+	UserDetails(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
 }
 
-type addServiceClient struct {
+type userServiceClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewAddServiceClient(cc *grpc.ClientConn) AddServiceClient {
-	return &addServiceClient{cc}
+func NewUserServiceClient(cc *grpc.ClientConn) UserServiceClient {
+	return &userServiceClient{cc}
 }
 
-func (c *addServiceClient) Add(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+func (c *userServiceClient) UserDetails(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
-	err := c.cc.Invoke(ctx, "/proto.AddService/Add", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/proto.UserService/UserDetails", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *addServiceClient) Multiply(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
-	out := new(Response)
-	err := c.cc.Invoke(ctx, "/proto.AddService/Multiply", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+// UserServiceServer is the server API for UserService service.
+type UserServiceServer interface {
+	UserDetails(context.Context, *Request) (*Response, error)
 }
 
-// AddServiceServer is the server API for AddService service.
-type AddServiceServer interface {
-	Add(context.Context, *Request) (*Response, error)
-	Multiply(context.Context, *Request) (*Response, error)
+// UnimplementedUserServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedUserServiceServer struct {
 }
 
-// UnimplementedAddServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedAddServiceServer struct {
+func (*UnimplementedUserServiceServer) UserDetails(ctx context.Context, req *Request) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserDetails not implemented")
 }
 
-func (*UnimplementedAddServiceServer) Add(ctx context.Context, req *Request) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Add not implemented")
-}
-func (*UnimplementedAddServiceServer) Multiply(ctx context.Context, req *Request) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Multiply not implemented")
+func RegisterUserServiceServer(s *grpc.Server, srv UserServiceServer) {
+	s.RegisterService(&_UserService_serviceDesc, srv)
 }
 
-func RegisterAddServiceServer(s *grpc.Server, srv AddServiceServer) {
-	s.RegisterService(&_AddService_serviceDesc, srv)
-}
-
-func _AddService_Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UserService_UserDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Request)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AddServiceServer).Add(ctx, in)
+		return srv.(UserServiceServer).UserDetails(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/proto.AddService/Add",
+		FullMethod: "/proto.UserService/UserDetails",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AddServiceServer).Add(ctx, req.(*Request))
+		return srv.(UserServiceServer).UserDetails(ctx, req.(*Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AddService_Multiply_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AddServiceServer).Multiply(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/proto.AddService/Multiply",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AddServiceServer).Multiply(ctx, req.(*Request))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-var _AddService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.AddService",
-	HandlerType: (*AddServiceServer)(nil),
+var _UserService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "proto.UserService",
+	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Add",
-			Handler:    _AddService_Add_Handler,
-		},
-		{
-			MethodName: "Multiply",
-			Handler:    _AddService_Multiply_Handler,
+			MethodName: "UserDetails",
+			Handler:    _UserService_UserDetails_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

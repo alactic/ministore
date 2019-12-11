@@ -12,7 +12,6 @@ import (
 	hashed "github.com/alactic/ministore/userservice/utils/hash"
 	"github.com/alactic/ministore/userservices/utils/shared/error"
 
-	// "github.com/alactic/ministore/sharedservice/httputil"
 
 	"gopkg.in/couchbase/gocb.v1"
 
@@ -172,39 +171,15 @@ func GetUserById(ctx *gin.Context) {
 // @Failure 500 {object} error.HTTPError
 // @Router /api/v1/auth/login [post]
 func GetUserByEmailEndpoint(ctx *gin.Context) {
-	var user userm.User
-	var users []userm.UserDetails
-	e := ctx.ShouldBindJSON(&user)
-	if e != nil {
-		ctx.JSON(http.StatusBadRequest, e.Error())
-		return
-	}
 	query := gocb.NewN1qlQuery("SELECT " + bucket.Name() + ".* FROM " + bucket.Name() + " WHERE `email` = $1")
-	rows, err := bucket.ExecuteN1qlQuery(query, []interface{}{user.Email})
+	rows, err := bucket.ExecuteN1qlQuery(query, "eh")
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	var row userm.UserDetails
-	for rows.Next(&row) {
-		users = append(users, row)
-	}
-	error := hashed.CompareHashValue(user.Password, users[0].Password)
-	if error != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"data": "Invalid username or password"})
-		return
-	}
-	details := make(map[string]string)
-	details["firstname"] = users[0].Firstname
-	details["lastname"] =  users[0].Lastname
-	details["email"] = users[0].Email
 
-	var token = jwtFile.GenerateJWT(details)
-	users[0].Token = token
-	var response = make(map[string][]userm.UserDetails)
-	response["data"] = users
 
-	ctx.JSON(http.StatusOK, gin.H{"data": response})
+	ctx.JSON(http.StatusOK, gin.H{"data": rows})
 }
 
 // TestEndpoint godoc
