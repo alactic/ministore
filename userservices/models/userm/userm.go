@@ -78,3 +78,7 @@ func ValidationUpdate(a UpdateUser) error {
 		return nil
 	}
 }
+
+type UserEmail struct {
+	Email     string `json:"email"  binding:"required"`
+}

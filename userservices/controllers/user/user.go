@@ -1,18 +1,16 @@
 package user
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"net/http"
 	"os"
 
 	"github.com/alactic/ministore/userservices/models/userm"
-	proto "github.com/alactic/ministore/userservices/proto/userdetails"
+	// proto "github.com/alactic/ministore/userservices/proto/userdetails"
 	"github.com/alactic/ministore/userservices/utils/connection"
 
 	hashed "github.com/alactic/ministore/userservice/utils/hash"
-	"github.com/alactic/ministore/userservices/utils/router"
 	"github.com/alactic/ministore/userservices/utils/shared/error"
 
 	"gopkg.in/couchbase/gocb.v1"
@@ -174,15 +172,14 @@ func GetUserById(ctx *gin.Context) {
 // @Failure 500 {object} error.HTTPError
 // @Router /api/v1/auth/login [post]
 func GetUserByEmailEndpoint(ctx *gin.Context) {
-	query := gocb.NewN1qlQuery("SELECT " + bucket.Name() + ".* FROM " + bucket.Name() + " WHERE `email` = $1")
-	rows, err := bucket.ExecuteN1qlQuery(query, "eh")
+	var user userm.UserEmail
+	err := ctx.ShouldBindJSON(&user)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, err.Error())
-		return
 	}
+	var userdetail = UserDetails(user.Email)
 
-
-	ctx.JSON(http.StatusOK, gin.H{"data": rows})
+	ctx.JSON(http.StatusOK, gin.H{"data": userdetail})
 }
 
 // TestEndpoint godoc
@@ -202,13 +199,14 @@ func TestEndpoint(ctx *gin.Context) {
 }
 
 // Getting userdetails
-func UserDetails(email string) UpdateUser {
+func UserDetails(email string) map[string]string {
 	var users []userm.UpdateUser
 	query := gocb.NewN1qlQuery("SELECT " + bucket.Name() + ".* FROM " + bucket.Name() + " WHERE `email` = $1")
-	rows, err := bucket.ExecuteN1qlQuery(query, email)
+	rows, err := bucket.ExecuteN1qlQuery(query, []interface{}{email})
+
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, err.Error())
-		return
+		// ctx.JSON(http.StatusBadRequest, err.Error())
+		//	return
 	}
 
 	var row userm.UpdateUser
@@ -219,8 +217,8 @@ func UserDetails(email string) UpdateUser {
 	details["firstname"] = users[0].Firstname
 	details["lastname"] = users[0].Lastname
 	details["email"] = users[0].Email
-	details["id"] = users[0].Id
+	details["id"] = users[0].ID
 	details["type"] = users[0].Type
-	
+
 	return details
 }
