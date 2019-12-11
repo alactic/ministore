@@ -7,7 +7,6 @@ require (
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.5.0
-	github.com/golang/protobuf v1.3.2
 	github.com/satori/go.uuid v1.2.0
 	github.com/swaggo/swag v1.6.3
 	golang.org/x/crypto v0.0.0-20191202143827-86a70503ff7e

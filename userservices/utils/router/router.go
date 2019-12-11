@@ -10,7 +10,7 @@ import (
 
 	"context"
 
-	proto "github.com/alactic/ministore/userservices/proto/userdetails"
+	proto "github.com/alactic/ministore/proto/userdetail"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"

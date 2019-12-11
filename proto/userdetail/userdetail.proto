@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package proto;
+package userdetail;
 
 message Request {
   string email = 1;

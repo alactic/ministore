@@ -14,7 +14,7 @@ import (
 
 	"gopkg.in/couchbase/gocb.v1"
 
-	proto "github.com/alactic/ministore/userservices/proto/userdetails"
+	proto "github.com/alactic/ministore/proto/userdetail"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 )

@@ -8,6 +8,8 @@ github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 h1:d+Bc7a5rLufV
 github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578/go.mod h1:uGdkoq3SwY9Y+13GIhn11/XLaGBb4BfwItxLd5jeuXE=
 github.com/alactic/ministore v0.0.0-20191203074322-50417243e2bb h1:+bE3tImYg44YOB1YYB3boyTGng42v+wVU/kRD9oLXXE=
 github.com/alactic/ministore v0.0.0-20191203074322-50417243e2bb/go.mod h1:isHAuBiDMrf36LsLXnhAlhQGcPy3qzmxduV/Zw1yQhE=
+github.com/alactic/ministore v0.0.0-20191210204041-270c0ce25171 h1:iVwFWzeqeG42QICoxfBWLkUK3J9o9A2xnpzteKCrsdA=
+github.com/alactic/ministore v0.0.0-20191211140800-a7896074aa5d h1:Yu4jasmEwv/r/gIerwV65vHZS/yByNPdMveXhiBbQA4=
 github.com/alactic/ministore/userservice v0.0.0-20191203090227-fc11f6c33b76 h1:2hM/u7Y9cxvuGYiFzDCZq/uRVK8t237K1AyHaXV30sI=
 github.com/alactic/ministore/userservice v0.0.0-20191203090227-fc11f6c33b76/go.mod h1:poQPWYCHx0Lf/Z7kXzCkbnt5fW1KxC8wKsAAZPJs7BA=
 github.com/alactic/mygoproject v0.0.0-20191123211049-2df91565b1d2/go.mod h1:2unOM85AW35Mb1t2W/sLIuDxa45Zt6PEroS+KpFzg3w=
