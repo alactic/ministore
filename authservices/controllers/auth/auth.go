@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/alactic/ministore/authservices/models/userm"
@@ -13,7 +14,9 @@ import (
 
 	"gopkg.in/couchbase/gocb.v1"
 
+	proto "github.com/alactic/ministore/userservices/proto/userdetails"
 	"github.com/gin-gonic/gin"
+	"google.golang.org/grpc"
 )
 
 var bucket *gocb.Bucket = connection.Connection()
@@ -56,7 +59,7 @@ func CreateAuthEndpoint(ctx *gin.Context) {
 	}
 	details := make(map[string]string)
 	details["firstname"] = users[0].Firstname
-	details["lastname"] =  users[0].Lastname
+	details["lastname"] = users[0].Lastname
 	details["email"] = users[0].Email
 
 	var token = jwtFile.GenerateJWT(details)
@@ -65,4 +68,42 @@ func CreateAuthEndpoint(ctx *gin.Context) {
 	response["data"] = users
 
 	ctx.JSON(http.StatusOK, gin.H{"data": response})
+}
+
+// VerifyByEmail godoc
+// @Summary verify user by email
+// @Description Verify if the user exist by supplying email
+// @Tags Authentication
+// @Accept  json
+// @Produce  json
+// @Param user body userm.UserEmail true "User Data"
+// @Success 200 {object} userm.User
+// @Failure 400 {object} error.HTTPError
+// @Failure 404 {object} error.HTTPError
+// @Failure 500 {object} error.HTTPError
+// @Security ApiKeyAuth
+// @Router /api/v1/auth/verify [post]
+func VerifyByEmail(ctx *gin.Context) {
+	var user userm.UserEmail
+	// var users []userm.UserDetails
+	e := ctx.ShouldBindJSON(&user)
+	if e != nil {
+		ctx.JSON(http.StatusBadRequest, e.Error())
+		return
+	}
+
+	conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+	if err != nil {
+		panic(err)
+	}
+	client := proto.NewUserServiceClient(conn)
+
+	req := &proto.Request{A: user.Email}
+	if response, err := client.UserDetails(ctx, req); err == nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"result": fmt.Sprint(response.Result),
+		})
+	} else {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	}
 }

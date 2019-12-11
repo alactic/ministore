@@ -8,12 +8,20 @@ import (
 )
 
 func GenerateJWT(details map[string]string) string {
-	// var secretkey = os.Get("mysecretkey")
 	mySigningKey := []byte("elvisSecreyKey")
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		details,
+		"foo":       "bar",
+		"firstname": details["firstname"],
+		"lastname":  details["lastname"],
+		"email":     details["email"],
 		"nbf":       time.Date(2015, 10, 10, 12, 0, 0, 0, time.UTC).Unix(),
 	})
+
+	// mySigningKey := []byte("elvisSecreyKey")
+	// token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+	// 	details,
+	// 	"nbf":       time.Date(2015, 10, 10, 12, 0, 0, 0, time.UTC).Unix(),
+	// })
 
 	// Sign and get the complete encoded token as a string using the secret
 	tokenString, err := token.SignedString(mySigningKey)
