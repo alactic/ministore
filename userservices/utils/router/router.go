@@ -1,6 +1,8 @@
 package router
 
 import (
+	"context"
+	"fmt"
 	"net"
 
 	"github.com/gin-gonic/gin"
@@ -8,10 +10,9 @@ import (
 	// "github.com/alactic/ministore/sharedservice/utils/shared/error"
 	_ "github.com/alactic/ministore/userservices/docs"
 
-	"context"
-
 	proto "github.com/alactic/ministore/proto/userdetail"
 
+	"github.com/alactic/ministore/userservices/controllers/user"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
@@ -48,12 +49,11 @@ func auth() gin.HandlerFunc {
 }
 
 func (s *server) UserDetails(ctx context.Context, request *proto.Request) (*proto.Response, error) {
-	request.GetEmail()
+	fmt.Println("user details emial :: ", request.GetEmail())
+	var userdetail = user.UserDetails(request.GetEmail())
 
-	result := make(map[string]string)
-	result["firstname"] = "elvis"
-	result["lastname"] = "okafor"
-	result["email"] = "elvis@lendsqr.com"
-
-	return &proto.Response{Firstname: "elvis", Lastname: "okafor", Email: "elvis@gmail.com"}, nil
+	return &proto.Response{
+		Firstname: userdetail.firstname,
+		Lastname:  userdetail.lastname,
+		Email:     userdetail.email}, nil
 }

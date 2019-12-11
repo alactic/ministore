@@ -13,6 +13,8 @@ github.com/alactic/ministore v0.0.0-20191203150511-060fb92909b5/go.mod h1:gvs+bT
 github.com/alactic/ministore v0.0.0-20191208161659-9408f70da4bd h1:mAxZQz0spMqIFxqnbAKs1HMd8yKctkCcCrwfmYryQCk=
 github.com/alactic/ministore v0.0.0-20191208161659-9408f70da4bd/go.mod h1:UCC+ig80/5ZGQYBgIAdNnsC1RFEwkWIccXKmAvCHTco=
 github.com/alactic/ministore v0.0.0-20191211140800-a7896074aa5d h1:Yu4jasmEwv/r/gIerwV65vHZS/yByNPdMveXhiBbQA4=
+github.com/alactic/ministore v0.0.0-20191211153713-3751a5b5c683 h1:SRCDE1z7s3bnWAE4oA/HwUDyX7nKey8r5kQ3QFVVQy8=
+github.com/alactic/ministore v0.0.0-20191211153713-3751a5b5c683/go.mod h1:ppHWYjxlPO+tIADXqt0EWVTZCcSSOVYtqZ1kLNjdOXA=
 github.com/alactic/ministore/authservices v0.0.0-20191205120941-4d57d0c0cfc4/go.mod h1:pZbFpDmWMh0KMnNcgFn226eBTzZsvPRFHDKYc7MzgrY=
 github.com/alactic/ministore/userservice v0.0.0-20191203090227-fc11f6c33b76/go.mod h1:poQPWYCHx0Lf/Z7kXzCkbnt5fW1KxC8wKsAAZPJs7BA=
 github.com/alactic/ministore/userservices v0.0.0-20191203123509-0219e44cf7ca/go.mod h1:UlQxQidHKi84KjX3SY1U1GDsjmRhQFlpdURbW9VLgQs=

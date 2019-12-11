@@ -98,10 +98,10 @@ func VerifyByEmail(ctx *gin.Context) {
 	}
 	client := proto.NewUserServiceClient(conn)
 
-	req := &proto.Request{A: user.Email}
+	req := &proto.Request{Email: user.Email}
 	if response, err := client.UserDetails(ctx, req); err == nil {
 		ctx.JSON(http.StatusOK, gin.H{
-			"result": fmt.Sprint(response.Result),
+			"result details": fmt.Sprint(response),
 		})
 	} else {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

@@ -1,17 +1,19 @@
 package user
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net/http"
 	"os"
 
 	"github.com/alactic/ministore/userservices/models/userm"
+	proto "github.com/alactic/ministore/userservices/proto/userdetails"
 	"github.com/alactic/ministore/userservices/utils/connection"
 
 	hashed "github.com/alactic/ministore/userservice/utils/hash"
+	"github.com/alactic/ministore/userservices/utils/router"
 	"github.com/alactic/ministore/userservices/utils/shared/error"
-
 
 	"gopkg.in/couchbase/gocb.v1"
 
@@ -19,6 +21,7 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
+// type server = router.server
 var bucket *gocb.Bucket = connection.Connection()
 
 // CreateUserEndpoint godoc
@@ -196,4 +199,28 @@ func GetUserByEmailEndpoint(ctx *gin.Context) {
 // @Router /user/api/v1/users/test [get]
 func TestEndpoint(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"data": "testing app 777 " + os.Getenv("MODULE_NAME")})
+}
+
+// Getting userdetails
+func UserDetails(email string) UpdateUser {
+	var users []userm.UpdateUser
+	query := gocb.NewN1qlQuery("SELECT " + bucket.Name() + ".* FROM " + bucket.Name() + " WHERE `email` = $1")
+	rows, err := bucket.ExecuteN1qlQuery(query, email)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	var row userm.UpdateUser
+	for rows.Next(&row) {
+		users = append(users, row)
+	}
+	details := make(map[string]string)
+	details["firstname"] = users[0].Firstname
+	details["lastname"] = users[0].Lastname
+	details["email"] = users[0].Email
+	details["id"] = users[0].Id
+	details["type"] = users[0].Type
+	
+	return details
 }

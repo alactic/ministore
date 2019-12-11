@@ -9,6 +9,6 @@ func Auth(router *gin.RouterGroup) {
 	route := router.Group("/auth")
 	{
 		route.POST("/login", auth.CreateAuthEndpoint)
-		route.GET("/add/:a/:b", auth.VerifyByEmail)
+		route.POST("/verify", auth.VerifyByEmail)
 	}
 }
