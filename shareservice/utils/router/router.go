@@ -8,12 +8,11 @@ import (
 	// "github.com/swaggo/gin-swagger/swaggerFiles"
 
 	// "github.com/alactic/ministore/sharedservice/utils/shared/error"
-	// "github.com/alactic/ministore/sharedservice/routes/index"
 	// _ "github.com/alactic/ministore/sharedservice/docs"
 
-	// proto "github.com/alactic/ministore/proto/userdetail"
+	proto "github.com/alactic/ministore/proto/userdetail"
 
-	// "github.com/alactic/ministore/sharedservice/controllers/user"
+	"github.com/alactic/ministore/shareservice/controllers/user"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"google.golang.org/grpc"
@@ -41,21 +40,21 @@ func Router() {
 	}
 }
 
-// func auth() gin.HandlerFunc {
-// 	return func(c *gin.Context) {
-// 		if len(c.GetHeader("Authorization")) == 0 {
-// 			// error.NewError(c, http.StatusUnauthorized, errors.New("Authorization is required Header"))
-// 			c.Abort()
-// 		}
-// 		c.Next()
-// 	}
-// }
+func auth() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		if len(c.GetHeader("Authorization")) == 0 {
+			// error.NewError(c, http.StatusUnauthorized, errors.New("Authorization is required Header"))
+			c.Abort()
+		}
+		c.Next()
+	}
+}
 
-// func (s *server) UserDetails(ctx context.Context, request *proto.Request) (*proto.Response, error) {
-// 	var userdetail = user.UserDetails(request.GetEmail())
+func (s *server) UserDetails(ctx context.Context, request *proto.Request) (*proto.Response, error) {
+	var userdetail = user.UserDetails(request.GetEmail())
 
-// 	return &proto.Response{
-// 		Firstname: userdetail["firstname"],
-// 		Lastname:  userdetail["lastname"],
-// 		Email:     userdetail["email"]}, nil
-// }
+	return &proto.Response{
+		Firstname: userdetail["firstname"],
+		Lastname:  userdetail["lastname"],
+		Email:     userdetail["email"]}, nil
+}
