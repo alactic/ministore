@@ -17,14 +17,9 @@
     },
     "basePath": "/",
     "paths": {
-        "/user/api/v1/users/": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "get all user by json",
+        "/api/v1/auth/login": {
+            "post": {
+                "description": "getting the user details by supplying email",
                 "consumes": [
                     "application/json"
                 ],
@@ -34,12 +29,24 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "get all users",
+                "summary": "get user by email",
+                "parameters": [
+                    {
+                        "description": "User Data",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/userm.User"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/userm.UpdateUser"
+                            "$ref": "#/definitions/userm.User"
                         }
                     },
                     "400": {
@@ -61,14 +68,16 @@
                         }
                     }
                 }
-            },
-            "put": {
+            }
+        },
+        "/api/v1/users/": {
+            "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Update by json user",
+                "description": "get all user by json",
                 "consumes": [
                     "application/json"
                 ],
@@ -78,19 +87,7 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Update a user",
-                "parameters": [
-                    {
-                        "description": "User Data",
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "$ref": "#/definitions/userm.UpdateUser"
-                        }
-                    }
-                ],
+                "summary": "get all users",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -175,7 +172,7 @@
                 }
             }
         },
-        "/user/api/v1/users/test": {
+        "/api/v1/users/test": {
             "get": {
                 "security": [
                     {
@@ -193,6 +190,64 @@
                     "Users"
                 ],
                 "summary": "testing endpoint",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/userm.UpdateUser"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/error.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/error.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/error.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/api/v1/users/": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Update by json user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update a user",
+                "parameters": [
+                    {
+                        "description": "User Data",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/userm.UpdateUser"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",

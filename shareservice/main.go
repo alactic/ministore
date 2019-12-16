@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	// "github.com/alactic/ministore/sharedservice/utils/connection"
+	// "github.com/alactic/ministore/shareservice/utils/connection"
 	"github.com/alactic/ministore/shareservice/utils/router"
 	"gopkg.in/couchbase/gocb.v1"
 )

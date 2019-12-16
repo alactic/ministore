@@ -1,7 +1,7 @@
 package user
 
 import (
-	"github.com/alactic/ministore/sharedservice/controllers/user"
+	"github.com/alactic/ministore/shareservice/controllers/user"
 	"github.com/gin-gonic/gin"
 )
 

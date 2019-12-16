@@ -34,7 +34,7 @@ var bucket *gocb.Bucket = connection.Connection()
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
 // @Security ApiKeyAuth
-// @Router /user/api/v1/users/ [post]
+// @Router /api/v1/users/ [post]
 func CreateUserEndpoint(ctx *gin.Context) {
 	var addUser userm.User
 	authHeader := ctx.GetHeader("Authorization")
@@ -64,7 +64,7 @@ func CreateUserEndpoint(ctx *gin.Context) {
 	response["Lastname"] = addUser.Lastname
 	response["Type"] = addUser.Type
 	response["Email"] = addUser.Email
-	ctx.JSON(http.StatusOK, response)
+	ctx.JSON(http.StatusOK, addUser)
 }
 
 // UpdateUserEndpoint godoc
@@ -112,7 +112,7 @@ func UpdateUserEndpoint(ctx *gin.Context) {
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
 // @Security ApiKeyAuth
-// @Router /user/api/v1/users/ [get]
+// @Router /api/v1/users/ [get]
 func GetUsersEndpoint(ctx *gin.Context) {
 	var users []userm.UpdateUser
 	authHeader := ctx.GetHeader("Authorization")
@@ -193,7 +193,7 @@ func GetUserByEmailEndpoint(ctx *gin.Context) {
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
 // @Security ApiKeyAuth
-// @Router /user/api/v1/users/test [get]
+// @Router /api/v1/users/test [get]
 func TestEndpoint(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"data": "testing app 777 " + os.Getenv("MODULE_NAME")})
 }

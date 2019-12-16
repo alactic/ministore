@@ -20,4 +20,4 @@ require (
 
 replace github.com/satori/go.uuid v1.2.0 => github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b
 
-replace  github.com/alactic/ministore/sharedservice/utils/connection v0.0.0=>  github.com/alactic/ministore/sharedservice/utils/connection v0.0.0-20191211215435-bbb20428b6f2
+// replace  github.com/alactic/ministore/shareservice/utils/connection v0.0.0=>  github.com/alactic/ministore/shareservice/utils/connection v0.0.0-20191211215435-bbb20428b6f2

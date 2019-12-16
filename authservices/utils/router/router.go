@@ -7,7 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	// "github.com/alactic/ministore/sharedservice/httputil"
+	// "github.com/alactic/ministore/shareservice/httputil"
 	_ "github.com/alactic/ministore/authservices/docs"
 	"github.com/alactic/ministore/authservices/routes/index"
 	swaggerFiles "github.com/swaggo/files"
@@ -22,7 +22,7 @@ func Router() {
 		index.Index(v1)
 	}
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	r.Run(":8889")
+	r.Run(":8887")
 }
 
 func auth() gin.HandlerFunc {

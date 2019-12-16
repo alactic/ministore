@@ -1,7 +1,7 @@
 package index
 
 import (
-	"github.com/alactic/ministore/userservices/routes/user"
+	"github.com/alactic/ministore/shareservice/routes/user"
 	"github.com/gin-gonic/gin"
 )
 

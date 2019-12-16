@@ -1,13 +1,14 @@
 package auth
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 
 	"github.com/alactic/ministore/authservices/models/userm"
 	"github.com/alactic/ministore/authservices/utils/connection"
 
-	// "github.com/alactic/ministore/authservices/utils/shared/error"
+	"github.com/alactic/ministore/authservices/utils/shared/error"
 
 	hashed "github.com/alactic/ministore/authservices/utils/hash"
 	jwtFile "github.com/alactic/ministore/authservices/utils/jwt"
@@ -62,17 +63,21 @@ func CreateAuthEndpoint(ctx *gin.Context) {
 	details["lastname"] = users[0].Lastname
 	details["email"] = users[0].Email
 
-	var token = jwtFile.GenerateJWT(details)
-	users[0].Token = token
-	var response = make(map[string][]userm.UserDetails)
-	response["data"] = users
-
-	ctx.JSON(http.StatusOK, gin.H{"data": response})
+	token, err := jwtFile.GenerateJWT(details)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"data": err})
+	}else {
+		users[0].Token = token
+		var response = make(map[string][]userm.UserDetails)
+		response["data"] = users
+	
+		ctx.JSON(http.StatusOK, gin.H{"data": response})
+	}
 }
 
 // VerifyByEmail godoc
-// @Summary verify user by email
-// @Description Verify if the user exist by supplying email
+// @Summary verify grpc
+// @Description Verify verify grpc
 // @Tags Authentication
 // @Accept  json
 // @Produce  json
@@ -84,15 +89,28 @@ func CreateAuthEndpoint(ctx *gin.Context) {
 // @Security ApiKeyAuth
 // @Router /api/v1/auth/verify [post]
 func VerifyByEmail(ctx *gin.Context) {
+
+	authHeader := ctx.GetHeader("Authorization")
+	if len(authHeader) == 0 {
+		error.NewError(ctx, http.StatusBadRequest, errors.New("please set Header Authorization"))
+		return
+	}
+
+	e := jwtFile.DecodeJWT(authHeader)
+    if e != nil {
+		if e != nil {
+			ctx.JSON(http.StatusBadRequest, e.Error())
+			return
+		}
+	}
 	var user userm.UserEmail
-	// var users []userm.UserDetails
 	e := ctx.ShouldBindJSON(&user)
 	if e != nil {
 		ctx.JSON(http.StatusBadRequest, e.Error())
 		return
 	}
 
-	conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+	conn, err := grpc.Dial(":50051", grpc.WithInsecure())
 	if err != nil {
 		panic(err)
 	}
@@ -101,7 +119,36 @@ func VerifyByEmail(ctx *gin.Context) {
 	req := &proto.Request{Email: user.Email}
 	if response, err := client.UserDetails(ctx, req); err == nil {
 		ctx.JSON(http.StatusOK, gin.H{
-			"result details": fmt.Sprint(response),
+			"result details 11": fmt.Sprint(response),
+		})
+	} else {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	}
+}
+
+// VerifyByEmail godoc
+// @Summary testing grpc
+// @Description testing grpc
+// @Tags Authentication
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} userm.User
+// @Failure 400 {object} error.HTTPError
+// @Failure 404 {object} error.HTTPError
+// @Failure 500 {object} error.HTTPError
+// @Security ApiKeyAuth
+// @Router /api/v1/auth/test [get]
+func TestByEmail(ctx *gin.Context) {
+	conn, err := grpc.Dial(":50051", grpc.WithInsecure())
+	if err != nil {
+		panic(err)
+	}
+	client := proto.NewUserServiceClient(conn)
+
+	req := &proto.Request{Email: "elvis@lendsqr.com"}
+	if response, err := client.UserDetails(ctx, req); err == nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"result details 11": fmt.Sprint(response),
 		})
 	} else {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

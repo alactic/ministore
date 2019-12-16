@@ -1,23 +1,17 @@
 package router
 
 import (
-	"context"
-	"net"
-
 	"github.com/gin-gonic/gin"
 	// "github.com/swaggo/gin-swagger/swaggerFiles"
 
-	// "github.com/alactic/ministore/sharedservice/utils/shared/error"
-	"github.com/alactic/ministore/authservices/routes/index"
+	// "github.com/swaggo/gin-swagger/swaggerFiles"
+
+	// "github.com/alactic/ministore/shareservice/utils/shared/error"
+	// "github.com/alactic/ministore/authservices/routes/index"
 	_ "github.com/alactic/ministore/userservices/docs"
-
-	proto "github.com/alactic/ministore/proto/userdetail"
-
-	"github.com/alactic/ministore/userservices/controllers/user"
+	"github.com/alactic/ministore/userservices/routes/index"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
 )
 
 type server struct{}
@@ -30,15 +24,7 @@ func Router() {
 		index.Index(v1)
 	}
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	r.Run(":8888")
-
-	lis, _ := net.Listen("tcp", ":50051")
-	srv := grpc.NewServer()
-	proto.RegisterUserServiceServer(srv, &server{})
-	reflection.Register(srv)
-	if e := srv.Serve(lis); e != nil {
-		panic(e)
-	}
+	r.Run(":1111")
 }
 
 func auth() gin.HandlerFunc {
@@ -49,13 +35,4 @@ func auth() gin.HandlerFunc {
 		}
 		c.Next()
 	}
-}
-
-func (s *server) UserDetails(ctx context.Context, request *proto.Request) (*proto.Response, error) {
-	var userdetail = user.UserDetails(request.GetEmail())
-
-	return &proto.Response{
-		Firstname: userdetail["firstname"],
-		Lastname:  userdetail["lastname"],
-		Email:     userdetail["email"]}, nil
 }
