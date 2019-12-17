@@ -12,8 +12,17 @@ message Response {
   string lastname = 4;
 }
 
+message Requesttoken {
+  string token = 5;
+}
+
+message tokenresponse {
+  int64 authorization = 6;
+}
+
 
 service UserService {
   rpc UserDetails(Request) returns (Response) {}
+  rpc UserAuthorization(Requesttoken) returns (tokenresponse) {}
 }
 

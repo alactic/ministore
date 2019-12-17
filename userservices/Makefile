@@ -29,3 +29,6 @@ fixuuid:
 
 creatingPrimaryIndex:
 	CREATE PRIMARY INDEX ON default;
+
+fixforunknownversion:
+	https://stackoverflow.com/questions/58012771/go-mod-fails-to-find-version-v0-0-0-00010101000000-000000000000-of-a-dependencys

@@ -1,14 +1,12 @@
 package auth
 
 import (
-	"errors"
 	"fmt"
 	"net/http"
 
 	"github.com/alactic/ministore/authservices/models/userm"
 	"github.com/alactic/ministore/authservices/utils/connection"
 
-	"github.com/alactic/ministore/authservices/utils/shared/error"
 
 	hashed "github.com/alactic/ministore/authservices/utils/hash"
 	jwtFile "github.com/alactic/ministore/authservices/utils/jwt"
@@ -89,24 +87,10 @@ func CreateAuthEndpoint(ctx *gin.Context) {
 // @Security ApiKeyAuth
 // @Router /api/v1/auth/verify [post]
 func VerifyByEmail(ctx *gin.Context) {
-
-	authHeader := ctx.GetHeader("Authorization")
-	if len(authHeader) == 0 {
-		error.NewError(ctx, http.StatusBadRequest, errors.New("please set Header Authorization"))
-		return
-	}
-
-	e := jwtFile.DecodeJWT(authHeader)
-    if e != nil {
-		if e != nil {
-			ctx.JSON(http.StatusBadRequest, e.Error())
-			return
-		}
-	}
 	var user userm.UserEmail
-	e := ctx.ShouldBindJSON(&user)
-	if e != nil {
-		ctx.JSON(http.StatusBadRequest, e.Error())
+	err := ctx.ShouldBindJSON(&user)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -119,7 +103,7 @@ func VerifyByEmail(ctx *gin.Context) {
 	req := &proto.Request{Email: user.Email}
 	if response, err := client.UserDetails(ctx, req); err == nil {
 		ctx.JSON(http.StatusOK, gin.H{
-			"result details 11": fmt.Sprint(response),
+			"result details": fmt.Sprint(response),
 		})
 	} else {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

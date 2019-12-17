@@ -10,6 +10,7 @@ import (
 	proto "github.com/alactic/ministore/proto/userdetail"
 
 	"github.com/alactic/ministore/shareservice/controllers/user"
+	"github.com/alactic/ministore/shareservice/controllers/auth"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
@@ -26,15 +27,6 @@ func Router() {
 	}
 }
 
-func auth() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		if len(c.GetHeader("Authorization")) == 0 {
-			// error.NewError(c, http.StatusUnauthorized, errors.New("Authorization is required Header"))
-			c.Abort()
-		}
-		c.Next()
-	}
-}
 
 func (s *server) UserDetails(ctx context.Context, request *proto.Request) (*proto.Response, error) {
 	var userdetail = user.UserDetails(request.GetEmail())
@@ -43,4 +35,10 @@ func (s *server) UserDetails(ctx context.Context, request *proto.Request) (*prot
 		Firstname: userdetail["email"],
 		Lastname:  userdetail["lastname"],
 		Email:     userdetail["firstname"]}, nil
+}
+
+func (s *server) Authorization(ctx context.Context, request *proto.Request) (*proto.Response, error) {
+	var response = auth.Authorization(request.GetEmail())
+
+	return &proto.Tokenresponse{Authorization: response}, nil
 }

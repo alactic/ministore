@@ -3,9 +3,6 @@ package jwt
 import (
 	"fmt"
 	"time"
-
-	// "time"
-
 	"github.com/dgrijalva/jwt-go"
 )
 
