@@ -7,7 +7,6 @@ import (
 	"github.com/alactic/ministore/authservices/models/userm"
 	"github.com/alactic/ministore/authservices/utils/connection"
 
-
 	hashed "github.com/alactic/ministore/authservices/utils/hash"
 	jwtFile "github.com/alactic/ministore/authservices/utils/jwt"
 
@@ -64,11 +63,11 @@ func CreateAuthEndpoint(ctx *gin.Context) {
 	token, err := jwtFile.GenerateJWT(details)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"data": err})
-	}else {
+	} else {
 		users[0].Token = token
 		var response = make(map[string][]userm.UserDetails)
 		response["data"] = users
-	
+
 		ctx.JSON(http.StatusOK, gin.H{"data": response})
 	}
 }
@@ -132,7 +131,7 @@ func TestByEmail(ctx *gin.Context) {
 	req := &proto.Request{Email: "elvis@lendsqr.com"}
 	if response, err := client.UserDetails(ctx, req); err == nil {
 		ctx.JSON(http.StatusOK, gin.H{
-			"result details 11": fmt.Sprint(response),
+			"result details docker 2334": fmt.Sprint(response),
 		})
 	} else {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

@@ -1,5 +1,5 @@
 protomain:
-	protoc --proto_path=proto  --go_out=plugins=grpc:proto proto/userdetails/userdetails.proto
+	protoc --proto_path=proto  --go_out=plugins=grpc:proto proto/userdetail/userdetail.proto
 
 
 build:

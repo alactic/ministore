@@ -17,9 +17,7 @@ func Connection() *gocb.Bucket {
 	fmt.Println("host COUCHBASE_PASSWORD :: ", os.Getenv("COUCHBASE_PASSWORD"))
 
 	cluster, _ := gocb.Connect(os.Getenv("COUCHBASE_HOST"))
-    bucketName = os.Getenv("COUCHBASE_BUCKET")
- 
-
+	bucketName = os.Getenv("COUCHBASE_BUCKET")
 
 	//  cluster, _ := gocb.Connect("http://localhost")
 	// cluster, _ := gocb.Connect("http://192.168.0.107:31053")
@@ -32,7 +30,6 @@ func Connection() *gocb.Bucket {
 	bucket, _ = cluster.OpenBucket(bucketName, "")
 	fmt.Println("bucketName :: ", bucketName)
 	fmt.Println("host bucket:: ", bucket)
-
 
 	return bucket
 }

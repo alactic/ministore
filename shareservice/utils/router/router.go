@@ -4,7 +4,6 @@ import (
 	"context"
 	"net"
 
-	"github.com/gin-gonic/gin"
 	_ "github.com/alactic/ministore/shareservice/docs"
 
 	proto "github.com/alactic/ministore/proto/userdetail"
@@ -37,8 +36,8 @@ func (s *server) UserDetails(ctx context.Context, request *proto.Request) (*prot
 		Email:     userdetail["firstname"]}, nil
 }
 
-func (s *server) Authorization(ctx context.Context, request *proto.Request) (*proto.Response, error) {
-	var response = auth.Authorization(request.GetEmail())
+func (s *server) UserAuthorization(ctx context.Context, request *proto.Requesttoken) (*proto.Tokenresponse, error) {
+	var response = auth.Authorization(request.GetToken())
 
 	return &proto.Tokenresponse{Authorization: response}, nil
 }

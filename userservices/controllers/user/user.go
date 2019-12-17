@@ -10,7 +10,7 @@ import (
 	// proto "github.com/alactic/ministore/userservices/proto/userdetails"
 	"github.com/alactic/ministore/userservices/utils/connection"
 
-	hashed "github.com/alactic/ministore/userservice/utils/hash"
+	hashed "github.com/alactic/ministore/userservices/utils/hash"
 	"github.com/alactic/ministore/userservices/utils/shared/error"
 
 	"gopkg.in/couchbase/gocb.v1"
