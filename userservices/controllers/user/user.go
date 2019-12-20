@@ -193,9 +193,9 @@ func GetUserByEmailEndpoint(ctx *gin.Context) {
 // @Failure 404 {object} error.HTTPError
 // @Failure 500 {object} error.HTTPError
 // @Security ApiKeyAuth
-// @Router /api/v1/users/test [get]
+// @Router /api/v1/users/test [get] 
 func TestEndpoint(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{"data": "testing app 777 " + os.Getenv("MODULE_NAME")})
+	ctx.JSON(http.StatusOK, gin.H{"data": "testing 22 app go 777 " + os.Getenv("MODULE_NAME")})
 }
 
 // Getting userdetails

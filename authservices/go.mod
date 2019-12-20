@@ -3,7 +3,7 @@ module github.com/alactic/ministore/authservices
 go 1.13
 
 require (
-	github.com/alactic/ministore v0.0.0-20191217143130-6be0d16f6885
+	github.com/alactic/ministore v0.0.0-20191218073953-b67fe8aa5f85
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.5.0

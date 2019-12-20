@@ -2,8 +2,10 @@ module github.com/alactic/ministore/userservices
 
 go 1.13
 
+replace github.com/satori/go.uuid v1.2.0 => github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b
+
 require (
-	github.com/alactic/ministore v0.0.0-20191217212802-7ecdad1cb035
+	github.com/alactic/ministore v0.0.0-20191218073953-b67fe8aa5f85
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/gin-gonic/gin v1.5.0
 	github.com/golang/snappy v0.0.1 // indirect
@@ -21,5 +23,3 @@ require (
 	gopkg.in/couchbaselabs/gojcbmock.v1 v1.0.3 // indirect
 	gopkg.in/couchbaselabs/jsonx.v1 v1.0.0 // indirect
 )
-
-replace github.com/satori/go.uuid v1.2.0 => github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b

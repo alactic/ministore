@@ -1,6 +1,7 @@
 package router
 
 import (
+	"net/http"
 	_ "github.com/alactic/ministore/userservices/docs"
 	"github.com/alactic/ministore/userservices/routes/index"
 	jwtFile "github.com/alactic/ministore/userservices/utils/jwt"
@@ -20,11 +21,19 @@ func Router() {
 		index.Index(v1)
 	}
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	r.Run(":1111")
+	r.Run(":2222")
 }
 
 func Authorization() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		jwtFile.DecodeJWT(c, c.GetHeader("Authorization"))
+		token := c.GetHeader("Authorization")
+		error := jwtFile.DecodeJWT(c, token)
+		if error != 200 {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "You are not authorised to perform this action"})
+			c.Abort()
+			return
+		}
+		c.Next()
 	}
 }
+

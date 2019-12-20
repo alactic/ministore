@@ -6,8 +6,8 @@ github.com/PuerkitoBio/purell v1.1.0 h1:rmGxhojJlM0tuKtfdvliR84CFHljx9ag64t2xmVk
 github.com/PuerkitoBio/purell v1.1.0/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbtSwDGJws/X0=
 github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 h1:d+Bc7a5rLufV/sSk/8dngufqelfh6jnri85riMAaF/M=
 github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578/go.mod h1:uGdkoq3SwY9Y+13GIhn11/XLaGBb4BfwItxLd5jeuXE=
-github.com/alactic/ministore v0.0.0-20191217212802-7ecdad1cb035 h1:lrPa1UWnjPj6zFJTIrGVdScGEKEv5VPlxXY31x5DmGo=
-github.com/alactic/ministore v0.0.0-20191217212802-7ecdad1cb035/go.mod h1:isHAuBiDMrf36LsLXnhAlhQGcPy3qzmxduV/Zw1yQhE=
+github.com/alactic/ministore v0.0.0-20191218073953-b67fe8aa5f85 h1:JE3gOcxUtfJlFbtWEftxq42w0wjE0XhikJ6oWG62oTo=
+github.com/alactic/ministore v0.0.0-20191218073953-b67fe8aa5f85/go.mod h1:isHAuBiDMrf36LsLXnhAlhQGcPy3qzmxduV/Zw1yQhE=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 h1:JYp7IbQjafoB+tBA3gMyHYHrpOtNuDiK/uB5uXxq5wM=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=

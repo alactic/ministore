@@ -1,14 +1,12 @@
 package jwt
 
 import (
-	"fmt"
-
 	proto "github.com/alactic/ministore/proto/userdetail"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 )
 
-func DecodeJWT(ctx *gin.Context, token string) error {
+func DecodeJWT(ctx *gin.Context, token string) int64 {
 	conn, err := grpc.Dial(":50051", grpc.WithInsecure())
 	if err != nil {
 		panic(err)
@@ -16,10 +14,8 @@ func DecodeJWT(ctx *gin.Context, token string) error {
 	client := proto.NewUserServiceClient(conn)
 
 	req := &proto.Requesttoken{Token: token}
-	if response, err := client.UserAuthorization(ctx, req); err == nil {
-		fmt.Sprint(response)
-		return nil
-	} else {
-		return err
-	}
+	if response, error := client.UserAuthorization(ctx, req); error == nil {
+		return int64(response.Authorization)
+	} 	 
+	return 400
 }
